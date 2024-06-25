@@ -34,7 +34,7 @@ export const CheckBoxGroup = (props: IFormProps) => {
       case IFormFieldType.TOP_LABEL:
         labelClassName = "";
         fieldClassName = "field p-fluid";
-        divClassName = "grid";
+        divClassName = "grid flex flex-column";
         break;
       default:
         labelClassName = "col-12 mb-3 md:col-3 md:mb-0";
