@@ -1,7 +1,6 @@
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { inputValidator } from "../../../../library/utilities/helperFunction";
 import { Checkbox, CheckboxChangeEvent } from "primereact/checkbox";
-import { useState } from "react";
 import { IFormFieldType } from "../../../../library/utilities/constant";
 import { IFormProps } from "../formInterface/forms.model";
 import { FormFieldError } from "../formFieldError/FormFieldError";
@@ -12,13 +11,12 @@ export const CheckBoxGroup = (props: IFormProps) => {
   const { required, disabled } = form[attribute].rules;
   const {
     control,
-    getValues,
     formState: { errors },
   } = useFormContext();
-
-  let selectedValue: number[] = getValues(attribute) || [];
-  const [selectedOptions, setSelectedOptions] =
-    useState<number[]>(selectedValue);
+  const selectedValues: number[] = useWatch({
+    name: attribute,
+    defaultValue: [],
+  });
 
   const getClassNames = () => {
     let labelClassName = "";
@@ -55,9 +53,8 @@ export const CheckBoxGroup = (props: IFormProps) => {
 
   const onChange = (e: CheckboxChangeEvent, field: any) => {
     const selectedValue = e.checked
-      ? [...selectedOptions, e.value]
-      : selectedOptions.filter((value) => value !== e.value);
-    setSelectedOptions(selectedValue.map((value) => Number(value)));
+      ? [...selectedValues, e.value]
+      : selectedValues.filter((value) => value !== e.value);
     field.onChange(selectedValue.map((value) => Number(value)));
   };
   return (
@@ -77,7 +74,7 @@ export const CheckBoxGroup = (props: IFormProps) => {
                       inputId={option.label}
                       value={option.value}
                       onChange={(e) => onChange(e, field)}
-                      checked={selectedOptions.includes(Number(option.value))}
+                      checked={selectedValues.includes(Number(option.value))}
                       className={errors[attribute] ? "p-invalid" : ""}
                       disabled={disabled}
                     />
