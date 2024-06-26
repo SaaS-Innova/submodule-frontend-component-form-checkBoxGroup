@@ -67,7 +67,7 @@ export const CheckBoxGroup = (props: IFormProps) => {
         {options &&
           options.map((option) => {
             return (
-              <div className="md:col-4" key={option.value}>
+              <div className="p-1" key={option.value}>
                 <Controller
                   name={attribute}
                   control={control}
