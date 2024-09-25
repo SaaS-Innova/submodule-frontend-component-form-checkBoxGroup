@@ -7,7 +7,7 @@ import { FormFieldError } from "../formFieldError/FormFieldError";
 
 export const CheckBoxGroup = (props: IFormProps) => {
   const { attribute, form, fieldType } = props;
-  const { label, options } = form[attribute];
+  const { label, options, extraLabelElementContent } = form[attribute];
   const { required, disabled } = form[attribute].rules;
   const {
     control,
@@ -48,6 +48,7 @@ export const CheckBoxGroup = (props: IFormProps) => {
   const labelElement = (
     <label htmlFor={attribute} className={labelClassName}>
       {label} {required && "*"}
+      {extraLabelElementContent && extraLabelElementContent}
     </label>
   );
 
