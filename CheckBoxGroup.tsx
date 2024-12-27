@@ -51,7 +51,7 @@ export const CheckBoxGroup = (props: IFormProps) => {
       {extraLabelElementContent && extraLabelElementContent}
     </label>
   );
-
+  const widthStyle = { width: `${100 / itemPerRow}%` };
   const onChange = (e: CheckboxChangeEvent, field: any) => {
     const selectedValue = e.checked
       ? [...selectedValues, e.value]
@@ -65,7 +65,7 @@ export const CheckBoxGroup = (props: IFormProps) => {
         {options &&
           options.map((option) => {
             return (
-              <div className="p-1" key={option.value}>
+              <div className="p-1" key={option.value} style={widthStyle}>
                 <Controller
                   name={attribute}
                   control={control}
