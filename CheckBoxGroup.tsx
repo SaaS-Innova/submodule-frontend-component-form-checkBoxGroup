@@ -8,7 +8,7 @@ import { FormFieldError } from "../formFieldError/FormFieldError";
 export const CheckBoxGroup = (props: IFormProps) => {
   const { attribute, form, fieldType } = props;
   const { label, options, extraLabelElementContent } = form[attribute];
-  const { required, disabled } = form[attribute].rules;
+  const { required, disabled, itemPerRow = 2 } = form[attribute].rules;
   const {
     control,
     formState: { errors },
