@@ -4,6 +4,7 @@ import { Checkbox, CheckboxChangeEvent } from "primereact/checkbox";
 import { IFormFieldType } from "../../../../library/utilities/constant";
 import { IFormProps } from "../formInterface/forms.model";
 import { FormFieldError } from "../formFieldError/FormFieldError";
+import { useMemo } from "react";
 
 export const CheckBoxGroup = (props: IFormProps) => {
   const { attribute, form, fieldType } = props;
@@ -18,32 +19,23 @@ export const CheckBoxGroup = (props: IFormProps) => {
     defaultValue: [],
   });
 
-  const getClassNames = () => {
-    let labelClassName = "";
-    let fieldClassName = "";
-    let divClassName = "";
-
+  const { labelClassName, fieldClassName, divClassName } = useMemo(() => {
     switch (fieldType) {
       case IFormFieldType.NO_LABEL:
-        labelClassName = "";
-        fieldClassName = "field p-fluid";
-        divClassName = "grid";
-        break;
       case IFormFieldType.TOP_LABEL:
-        labelClassName = "";
-        fieldClassName = "field p-fluid";
-        divClassName = "grid";
-        break;
+        return {
+          labelClassName: "",
+          fieldClassName: "field p-fluid",
+          divClassName: "grid",
+        };
       default:
-        labelClassName = "col-12 mt-2 mb-3 md:col-3 md:mb-0";
-        fieldClassName = "field grid";
-        divClassName = "col-12 mt-2 md:col-9 grid relative";
-        break;
+        return {
+          labelClassName: "col-12 mt-2 mb-3 md:col-3 md:mb-0",
+          fieldClassName: "field grid",
+          divClassName: "col-12 mt-2 md:col-9 grid relative",
+        };
     }
-
-    return { labelClassName, fieldClassName, divClassName };
-  };
-  const { labelClassName, fieldClassName, divClassName } = getClassNames();
+  }, [fieldType]);
 
   const labelElement = (
     <label htmlFor={attribute} className={labelClassName}>
