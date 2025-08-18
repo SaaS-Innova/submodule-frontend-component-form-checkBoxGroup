@@ -16,7 +16,7 @@ export const CheckBoxGroup = (props: IFormProps) => {
   } = useFormContext();
   const selectedValues: number[] = useWatch({
     name: attribute,
-    defaultValue: [],
+    defaultValue: control._defaultValues[attribute] || [],
   });
 
   const { labelClassName, fieldClassName, divClassName } = useMemo(() => {
