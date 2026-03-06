@@ -14,7 +14,7 @@ export const CheckBoxGroup = (props: IFormProps) => {
     control,
     formState: { errors },
   } = useFormContext();
-  const selectedValues: number[] = useWatch({
+  const selectedValues: (number | string)[] = useWatch({
     name: attribute,
     defaultValue: control._defaultValues[attribute] || [],
   });
@@ -48,10 +48,10 @@ export const CheckBoxGroup = (props: IFormProps) => {
   const widthStyle = { width: `${100 / itemPerRow}%` };
 
   const onChange = (e: CheckboxChangeEvent, field: any) => {
-    const selectedValue = e.checked
+    const newValues: (number | string)[] = e.checked
       ? [...selectedValues, e.value]
       : selectedValues.filter((value) => value !== e.value);
-    field.onChange(selectedValue.map((value) => Number(value)));
+    field.onChange(newValues);
   };
 
   return (
@@ -71,7 +71,7 @@ export const CheckBoxGroup = (props: IFormProps) => {
                       inputId={option.label}
                       value={option.value}
                       onChange={(e) => onChange(e, field)}
-                      checked={selectedValues.includes(Number(option.value))}
+                      checked={selectedValues.some((v) => v === option.value)}
                       className={errors[attribute] ? "p-invalid" : ""}
                       disabled={disabled}
                     />
